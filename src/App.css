@@ -86,6 +86,14 @@ body {
 #logout {
   animation: transformx 2.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
+.top-nav-collapse {
+  background: transparent !important;
+  box-shadow: none;
+}
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+  box-shadow: none;
+}
 
 @keyframes transformx {
   0% {
