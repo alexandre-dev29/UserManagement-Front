@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:300");
+
+body {
+  font-family: "Roboto Mono", monospace;
+}
+/* YOUR CUSTOM STYLES */
+
+.top-nav-collapse {
+  background-color: #f8bbd0 !important;
+}
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+}
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #f8bbd0 !important;
+  }
+}
+.jarallax {
+  height: 1000px;
+}
+@media (max-width: 740px) {
+  .jarallax {
+    height: 300px;
+  }
+}
+@media (min-width: 769px) and (max-width: 1025px) {
+  .jarallax {
+    height: 500px;
+  }
+}
+.bg-mask-3 {
+  background: -moz-linear-gradient(
+    85deg,
+    rgb(4, 90, 108),
+    rgba(31, 3, 3, 0.78),
+    rgb(0, 255, 57) 120%
+  );
+  height: 643px;
+}
+.bg-mask {
+  background: -moz-linear-gradient(
+    85deg,
+    rgb(0, 165, 255),
+    rgba(0, 0, 0, 0.7),
+    rgb(255, 0, 0) 120%
+  );
+  height: 643px;
+}
+
+.bg {
+  background-image: url("assets/images/wallpaper.jpg");
+}
+.bg-0 {
+  background-image: url("assets/images/bg.png");
+}
+
+.login-form {
+  padding-top: 10%;
+}
+.btn-login {
+  width: 150px;
+}
+.btn-login:hover {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.2, 1);
+  width: 170px;
+  font-size: 17px;
+  border-radius: 1rem 2.5rem;
+}
+.btn {
+  box-shadow: none;
+}
+.btn:hover {
+  box-shadow: none;
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.2, 1);
+  border-radius: 1rem 2.5rem;
+}
+.full-bg-img {
+  background: -moz-linear-gradient(
+    45deg,
+    rgb(0, 0, 0),
+    rgba(243, 8, 8, 0.36),
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+#logout {
+  animation: transformx 2.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes transformx {
+  0% {
+    transform: translateX(0px);
+  }
+  45% {
+    transform: translateX(-5px);
+  }
+  55% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
