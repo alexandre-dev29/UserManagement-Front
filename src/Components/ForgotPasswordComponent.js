@@ -20,7 +20,7 @@ export default class FormResetComponent extends Component {
     console.log("send");
     ApiCall.post("/password-reset", { user: { email: email } })
       .then(res => {
-        if (res.response === "success") {
+        if (res.data.response === "success") {
           this.setState({ message: res.data.message, haveSend: true });
         } else {
           this.setState({ message: res.data.message });
