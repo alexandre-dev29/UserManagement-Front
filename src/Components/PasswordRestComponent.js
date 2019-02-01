@@ -27,7 +27,7 @@ class PasswordRestComponent extends Component {
       user: { token: resetToken, password: password }
     }).then(res => {
       if (res.data.response === "success") {
-        this.props.history("/signin");
+        this.props.history.push("/signin");
       } else {
         console.log(res);
         this.setState({ message: res.data.message });
@@ -36,9 +36,8 @@ class PasswordRestComponent extends Component {
   }
 
   componentDidMount() {
-    let token = "";
-    if (!this.props.location.search.split("=")[1]) {
-      token = this.props.location.search.split("=")[1];
+    if (this.props.location.search.split("=")[1]) {
+      let token = this.props.location.search.split("=")[1];
       this.setState({ resetToken: token, isAuth: true });
     } else {
       this.setState({ isAuth: false });
@@ -46,7 +45,7 @@ class PasswordRestComponent extends Component {
   }
   render() {
     const { isAuth, message } = this.state;
-    if (!isAuth) {
+    if (isAuth) {
       return (
         <main className="bg-mask">
           <div className="container">
