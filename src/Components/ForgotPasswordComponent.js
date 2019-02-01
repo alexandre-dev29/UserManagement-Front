@@ -13,7 +13,6 @@ export default class FormResetComponent extends Component {
                     <i className="fa fa-lock" /> Password Reset:
                   </h3>
                 </div>
-
                 <div className="md-form offset-3">
                   <input
                     type="text"

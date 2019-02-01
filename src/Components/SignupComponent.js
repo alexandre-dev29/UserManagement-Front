@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class SignupComponent extends Component {
   render() {
@@ -76,9 +77,9 @@ export default class SignupComponent extends Component {
                     <div className="col-md-12 text-center">
                       <p>
                         Already have an account ?{" "}
-                        <a className="deep-orange-text" href="login.html">
-                          Login here{" "}
-                        </a>
+                        <Link className="deep-orange-text" to="/signin">
+                          Login here
+                        </Link>
                       </p>
                     </div>
                   </div>

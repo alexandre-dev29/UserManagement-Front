@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-import Login from "./Components/LoginComponent";
-import Signup from "./Components/SignupComponent";
-import FormReset from "./Components/ForgotPasswordComponent";
-import PasswordReset from "./Components/PasswordRestComponent";
+import Routing from "./Routing";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <p>Alexandree</p>
-        <PasswordReset />
+        <Routing />
       </div>
     );
   }

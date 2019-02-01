@@ -83,6 +83,13 @@ body {
     rgba(0, 0, 0, 0.6) 100%
   );
 }
+
+.switch-wrapper {
+  position: relative;
+}
+
+.switch-wrapper > div {
+}
 #logout {
   animation: transformx 2.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
