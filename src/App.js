@@ -5,8 +5,7 @@ import Routing from "./Routing";
 class App extends Component {
   render() {
     return (
-      <div>
-        <p>Alexandree</p>
+      <div className="mt-5">
         <Routing />
       </div>
     );
