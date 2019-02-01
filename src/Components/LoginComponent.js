@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LoginForm from "./LoginForm";
+import LoginForm from "./Forms/LoginForm";
 import Message from "./MessageComponent";
 
 export default class LoginComponent extends Component {
