@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { ApiCall, ApiMailCall } from "../Tools/ApiConfig";
 import SignupForm from "./Forms/SignupForm";
 import Message from "./MessageComponent";
 

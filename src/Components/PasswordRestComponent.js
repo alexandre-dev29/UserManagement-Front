@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+
 import { ApiCall } from "../Tools/ApiConfig";
+import { css } from "@emotion/core";
+import { ClipLoader } from "react-spinners";
 
 class PasswordRestComponent extends Component {
   constructor(props) {
@@ -10,7 +13,10 @@ class PasswordRestComponent extends Component {
       password: "",
       retypepass: "",
       isAuth: false,
-      message: ""
+      message: "",
+      isLoading: false,
+      isDisabled: false,
+      isMatch: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,17 +28,25 @@ class PasswordRestComponent extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { resetToken, password } = this.state;
-    ApiCall.put("password-reset", {
-      user: { token: resetToken, password: password }
-    }).then(res => {
-      if (res.data.response === "success") {
-        this.props.history.push("/signin");
-      } else {
-        console.log(res);
-        this.setState({ message: res.data.message });
-      }
-    });
+    const { resetToken, password, retypepass } = this.state;
+    if (password !== retypepass) {
+      this.setState({ isMatch: false });
+    } else {
+      this.setState({ isLoading: true, isDisabled: true, isMatch: true });
+      ApiCall.put("password-reset", {
+        user: { token: resetToken, password: password }
+      }).then(res => {
+        if (res.data.response === "success") {
+          this.props.history.push("/signin");
+        } else {
+          this.setState({
+            message: res.data.message,
+            isLoading: true,
+            disabled: false
+          });
+        }
+      });
+    }
   }
 
   componentDidMount() {
@@ -43,8 +57,14 @@ class PasswordRestComponent extends Component {
       this.setState({ isAuth: false });
     }
   }
+
   render() {
-    const { isAuth, message } = this.state;
+    const { isAuth, message, isDisabled, isLoading, isMatch } = this.state;
+    const override = css`
+      display: block;
+      margin: 0 auto;
+      border-color: red;
+    `;
     if (isAuth) {
       return (
         <main className="bg-mask">
@@ -56,6 +76,13 @@ class PasswordRestComponent extends Component {
                     <h3 className="display-4 font-bold">
                       <i className="fa fa-lock" /> Reset Your Password:
                     </h3>
+                    <ClipLoader
+                      css={override}
+                      sizeUnit={"px"}
+                      size={35}
+                      color={"#123abc"}
+                      loading={isLoading}
+                    />
                     <h4 className="text-info text-center">{message}</h4>
                   </div>
                   <form onSubmit={this.handleSubmit}>
@@ -78,10 +105,18 @@ class PasswordRestComponent extends Component {
                         className="form-control"
                         onChange={this.handleChange}
                       />
+                      {isMatch ? (
+                        ""
+                      ) : (
+                        <span className="text-danger">
+                          password don't match
+                        </span>
+                      )}
                       <label htmlFor="retypepass">retype your password</label>
                     </div>
                     <div className="text-center ">
                       <button
+                        disabled={isDisabled}
                         type="submit"
                         className="btn btn-login  light-blue accent-4 z-depth-0 btn-rounded waves-effect"
                       >

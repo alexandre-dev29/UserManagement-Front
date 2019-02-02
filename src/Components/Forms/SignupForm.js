@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { ApiCall } from "../../Tools/ApiConfig";
+import { css } from "@emotion/core";
+// First way to import
+import { ClipLoader } from "react-spinners";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -12,7 +15,11 @@ class SignupForm extends Component {
       password: "",
       passwordConfirm: "",
       havesignup: false,
-      message: ""
+      message: "",
+      isMatch: true,
+      isPasswordGood: true,
+      isButtonDisable: false,
+      loading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,25 +32,60 @@ class SignupForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { firstName, lastName, email, password } = this.state;
-    ApiCall.post("/signup", {
-      user: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password
-      }
-    }).then(res => {
-      if (res.data.response === "success") {
-        this.setState({ message: res.data.message, havesignup: true });
-      } else {
-        this.setState({ message: res.data.message });
-      }
-    });
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordConfirm
+    } = this.state;
+    console.log(this.state);
+    if (password !== passwordConfirm) {
+      this.setState({ isMatch: false });
+    } else if (password.length < 6) {
+      this.setState({ isPasswordGood: false });
+    } else {
+      this.setState({
+        isPasswordGood: true,
+        isButtonDisable: true,
+        loading: true
+      });
+      ApiCall.post("/signup", {
+        user: {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password
+        }
+      }).then(res => {
+        if (res.data.response === "success") {
+          this.setState({ message: res.data.message, havesignup: true });
+        } else {
+          this.setState({
+            message: res.data.message,
+            isButtonDisable: false,
+            loading: false
+          });
+        }
+      });
+    }
   }
 
   render() {
-    const { message, havesignup } = this.state;
+    const {
+      message,
+      havesignup,
+      isMatch,
+      isPasswordGood,
+      isButtonDisable
+    } = this.state;
+
+    const override = css`
+      display: block;
+      margin: 0 auto;
+      border-color: red;
+    `;
+
     if (!havesignup) {
       return (
         <main className="bg-mask-3">
@@ -55,7 +97,16 @@ class SignupForm extends Component {
                     <h3 className="display-4 font-bold">
                       <i className="fa fa-lock text-primary" /> Signup:
                     </h3>
-                    <h3 className="text-danger">{message}</h3>
+                    <div>
+                      <ClipLoader
+                        css={override}
+                        sizeUnit={"px"}
+                        size={35}
+                        color={"#123abc"}
+                        loading={this.state.loading}
+                      />
+                    </div>
+                    <p className="text-danger">{message}</p>
                   </div>
                   <form onSubmit={this.handleSubmit}>
                     <div className="md-form">
@@ -67,6 +118,7 @@ class SignupForm extends Component {
                             name="firstName"
                             className="form-control"
                             onChange={this.handleChange}
+                            required
                           />
                           <label htmlFor="firstName">First Name</label>
                         </div>
@@ -77,6 +129,7 @@ class SignupForm extends Component {
                             name="lastName"
                             className="form-control"
                             onChange={this.handleChange}
+                            required
                           />
                           <label htmlFor="lastName">Last Name</label>
                         </div>
@@ -89,6 +142,7 @@ class SignupForm extends Component {
                         name="email"
                         className="form-control"
                         onChange={this.handleChange}
+                        required
                       />
                       <label htmlFor="email">Email</label>
                     </div>
@@ -100,6 +154,13 @@ class SignupForm extends Component {
                         className="form-control"
                         onChange={this.handleChange}
                       />
+                      {isPasswordGood ? (
+                        ""
+                      ) : (
+                        <span className="text-danger">
+                          password must have at least 6 caracters
+                        </span>
+                      )}
                       <label htmlFor="password">Password</label>
                     </div>
                     <div className="md-form  mt-3">
@@ -107,8 +168,16 @@ class SignupForm extends Component {
                         type="password"
                         id="passwordConfirm"
                         className="form-control"
+                        name="passwordConfirm"
                         onChange={this.handleChange}
                       />
+                      {isMatch ? (
+                        ""
+                      ) : (
+                        <span className="text-danger">
+                          password don't match
+                        </span>
+                      )}
                       <label htmlFor="passwordConfirm">Confirm Password</label>
                     </div>
 
@@ -116,6 +185,7 @@ class SignupForm extends Component {
                       <button
                         type="submit"
                         className="btn btn-login  light-blue accent-4 z-depth-0 btn-rounded waves-effect"
+                        disabled={isButtonDisable}
                       >
                         Signup
                       </button>

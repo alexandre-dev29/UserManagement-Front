@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { ApiCall } from "../Tools/ApiConfig";
+import { css } from "@emotion/core";
+// First way to import
+import { ClipLoader } from "react-spinners";
 
 export default class FormResetComponent extends Component {
   constructor(pros) {
@@ -7,7 +10,9 @@ export default class FormResetComponent extends Component {
     this.state = {
       email: "",
       message: "",
-      haveSend: false
+      haveSend: false,
+      isLoading: false,
+      disabled: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,13 +21,16 @@ export default class FormResetComponent extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ isLoading: true, disabled: true });
     const { email } = this.state;
     console.log("send");
     ApiCall.post("/password-reset", { user: { email: email } })
       .then(res => {
         if (res.data.response === "success") {
+          this.setState({ isLoading: false, disabled: false });
           this.setState({ message: res.data.message, haveSend: true });
         } else {
+          this.setState({ isLoading: false, disabled: false });
           this.setState({ message: res.data.message });
         }
       })
@@ -33,7 +41,12 @@ export default class FormResetComponent extends Component {
   }
 
   render() {
-    const { message, haveSend } = this.state;
+    const { message, haveSend, disabled } = this.state;
+    const override = css`
+      display: block;
+      margin: 0 auto;
+      border-color: red;
+    `;
     if (!haveSend) {
       return (
         <main className="bg-mask">
@@ -45,6 +58,13 @@ export default class FormResetComponent extends Component {
                     <h3 className="display-4 font-bold">
                       <i className="fa fa-lock" /> Password Reset:
                     </h3>
+                    <ClipLoader
+                      css={override}
+                      sizeUnit={"px"}
+                      size={35}
+                      color={"#123abc"}
+                      loading={this.state.isLoading}
+                    />
                     <h3 className="text-danger">{message}</h3>
                   </div>
                   <form onSubmit={this.handleSubmit}>
@@ -63,6 +83,7 @@ export default class FormResetComponent extends Component {
                       <button
                         type="submit"
                         className="btn btn-login  light-blue accent-4 z-depth-0 btn-rounded waves-effect"
+                        disabled={disabled}
                       >
                         Reset
                       </button>

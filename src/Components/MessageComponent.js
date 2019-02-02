@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 
 class MessageComponent extends Component {
   render() {
-    if (this.props.message) {
       return (
         <main className="bg-mask">
           <div className="container">
@@ -18,9 +17,7 @@ class MessageComponent extends Component {
           </div>
         </main>
       );
-    } else {
     }
-  }
 }
 
 export default withRouter(MessageComponent);
