@@ -36,15 +36,6 @@ for running test just type
 ```
 npm test
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
 the project was deploy using heroku cli .
