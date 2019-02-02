@@ -3,6 +3,7 @@ import SignupForm from "./Forms/SignupForm";
 import Message from "./MessageComponent";
 
 export default class SignupComponent extends Component {
+  //check if the user is logged
   isLoggedin() {
     if (localStorage.getItem("jumpcutUser")) {
       return true;
@@ -10,6 +11,7 @@ export default class SignupComponent extends Component {
       return false;
     }
   }
+
   render() {
     if (this.isLoggedin()) {
       return (

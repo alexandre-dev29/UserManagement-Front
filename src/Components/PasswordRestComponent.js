@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
-
 import { ApiCall } from "../Tools/ApiConfig";
 import { css } from "@emotion/core";
 import { ClipLoader } from "react-spinners";
 
+/**
+ * this component create a form for the passord reset
+ * and the send a call for changing the user password
+ */
 class PasswordRestComponent extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +25,12 @@ class PasswordRestComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  //handle changes of inputs
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  //handle submit of the form
   handleSubmit(event) {
     event.preventDefault();
     const { resetToken, password, retypepass } = this.state;
@@ -49,6 +54,7 @@ class PasswordRestComponent extends Component {
     }
   }
 
+  //it just get the token reset and put it in a state
   componentDidMount() {
     if (this.props.location.search.split("=")[1]) {
       let token = this.props.location.search.split("=")[1];

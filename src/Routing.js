@@ -9,6 +9,7 @@ import PasswordReset from "./Components/PasswordRestComponent";
 import ForgotPassword from "./Components/ForgotPasswordComponent";
 import Message from "./Components/MessageComponent";
 
+//create a protected route to redirect to the login if the user is not logged
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}

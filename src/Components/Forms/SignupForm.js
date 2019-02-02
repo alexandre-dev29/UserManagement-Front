@@ -14,7 +14,7 @@ class SignupForm extends Component {
       email: "",
       password: "",
       passwordConfirm: "",
-      havesignup: false,
+      havesignup: false, //if he has send the request
       message: "",
       isMatch: true,
       isPasswordGood: true,
@@ -32,6 +32,7 @@ class SignupForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    //loading states
     const {
       firstName,
       lastName,
@@ -39,7 +40,8 @@ class SignupForm extends Component {
       password,
       passwordConfirm
     } = this.state;
-    console.log(this.state);
+
+    //check if the two password input match
     if (password !== passwordConfirm) {
       this.setState({ isMatch: false });
     } else if (password.length < 6) {
@@ -50,6 +52,8 @@ class SignupForm extends Component {
         isButtonDisable: true,
         loading: true
       });
+
+      //send a signup request
       ApiCall.post("/signup", {
         user: {
           firstName: firstName,
@@ -72,6 +76,7 @@ class SignupForm extends Component {
   }
 
   render() {
+    //loading needed state
     const {
       message,
       havesignup,
@@ -80,12 +85,14 @@ class SignupForm extends Component {
       isButtonDisable
     } = this.state;
 
+    //style for the loader
     const override = css`
       display: block;
       margin: 0 auto;
       border-color: red;
     `;
 
+    //check if he has send the request
     if (!havesignup) {
       return (
         <main className="bg-mask-3">

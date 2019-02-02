@@ -4,13 +4,14 @@ import { css } from "@emotion/core";
 // First way to import
 import { ClipLoader } from "react-spinners";
 
+//send a resquest for password changes to the server
 export default class FormResetComponent extends Component {
   constructor(pros) {
     super(pros);
     this.state = {
       email: "",
       message: "",
-      haveSend: false,
+      haveSend: false, //if he has send the request
       isLoading: false,
       disabled: false
     };
@@ -36,6 +37,7 @@ export default class FormResetComponent extends Component {
       })
       .catch(res => console.log(res));
   }
+
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }

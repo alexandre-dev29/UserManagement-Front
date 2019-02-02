@@ -1,3 +1,7 @@
+/**
+ * this file export default configuation for api call]
+ * and headers set
+ */
 import axios from "axios";
 
 const baseUrl = "https://jumpcut-test-backend.herokuapp.com/";
