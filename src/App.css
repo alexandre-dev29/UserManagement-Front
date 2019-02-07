@@ -30,21 +30,9 @@ body {
   }
 }
 .bg-mask-3 {
-  background: -moz-linear-gradient(
-    85deg,
-    rgb(4, 90, 108),
-    rgba(31, 3, 3, 0.78),
-    rgb(0, 255, 57) 120%
-  );
   height: 643px;
 }
 .bg-mask {
-  background: -moz-linear-gradient(
-    85deg,
-    rgb(0, 165, 255),
-    rgba(0, 0, 0, 0.7),
-    rgb(255, 0, 0) 120%
-  );
   height: 643px;
 }
 
@@ -76,12 +64,6 @@ body {
   border-radius: 1rem 2.5rem;
 }
 .full-bg-img {
-  background: -moz-linear-gradient(
-    45deg,
-    rgb(0, 0, 0),
-    rgba(243, 8, 8, 0.36),
-    rgba(0, 0, 0, 0.6) 100%
-  );
 }
 
 .switch-wrapper {
