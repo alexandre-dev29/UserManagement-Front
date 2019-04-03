@@ -30,6 +30,11 @@ npm install
     then
 np start
 ```
+Clone the backend and configure it : 
+
+```sh
+https://github.com/alexandre-dev29/UserManagement-backend
+```
 
 # Deployment
 the project was deploy using heroku cli . for building the app just type
